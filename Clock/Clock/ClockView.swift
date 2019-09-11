@@ -95,9 +95,9 @@ class ClockView: UIView {
             
             // clock's border
             
-            // numerals
-//            let clockCenter = CGPoint(x: rect.size.width / 2.0,
-//                                      y: rect.size.height / 2.0)
+            
+            let clockCenter = CGPoint(x: rect.size.width / 2.0,
+                                    y: rect.size.height / 2.0)
 //            let numeralDistanceFromCenter = rect.size.width / 2.0 - digitFont.lineHeight / 4.0 - digitOffset
 //            let offset = 3 // offsets numerals, putting "12" at the top of the clock
 //
@@ -121,15 +121,36 @@ class ClockView: UIView {
 //            }
             
             // minute hand
+            context.move(to: clockCenter)
+            context.addLine(to: minuteHandEndPoint)
             
+            context.setLineWidth(minutes.width)
+            context.setStrokeColor(minutes.color.cgColor)
+            
+            context.strokePath()
             // hour hand
             
             // hour/minute's center
+            let radius: CGFloat = 6
             
+            let centerCircelRect = CGRect(x: clockCenter.x - radius, y: clockCenter.y - radius, width: radius*2, height: radius*2)
+            context.move(to: clockCenter)
+            context.addEllipse(in: centerCircelRect)
+            context.fillPath()
             // second hand
+            context.move(to: clockCenter)
+            context.addLine(to: secondHandEndPoint)
             
+            context.setStrokeColor(seconds.color.cgColor)
+            context.setLineWidth(seconds.width)
+            context.strokePath()
             // second's center
+            let secondRadius: CGFloat = 3
+            let secondCircleRect = CGRect(x: clockCenter.x-secondRadius, y: clockCenter.y-secondRadius, width: secondRadius*2, height: secondRadius*2)
             
+            context.addEllipse(in: secondCircleRect)
+            context.setFillColor(seconds.color.cgColor)
+            context.fillPath()
         }
     }
     
